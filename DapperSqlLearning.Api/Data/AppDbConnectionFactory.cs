@@ -1,5 +1,6 @@
 using System.Data.Common;
 using Microsoft.Data.Sqlite;
+using MySqlConnector;
 using Npgsql;
 
 namespace DapperSqlLearning.Api.Data;
@@ -14,7 +15,8 @@ public sealed class AppDbConnectionFactory(IConfiguration configuration) : IAppD
         {
             "postgres" or "postgresql" or "npgsql" => new NpgsqlConnection(GetPostgresConnectionString()),
             "sqlite" => new SqliteConnection(GetSqliteConnectionString()),
-            _ => throw new InvalidOperationException($"Unsupported database provider '{Provider}'. Supported: postgres, sqlite.")
+            "mysql" or "mariadb" => new MySqlConnection(GetMysqlConnectionString()),
+            _ => throw new InvalidOperationException($"Unsupported database provider '{Provider}'. Supported: postgres, sqlite, mysql.")
         };
     }
 
@@ -23,6 +25,13 @@ public sealed class AppDbConnectionFactory(IConfiguration configuration) : IAppD
         return configuration.GetConnectionString("Postgres")
             ?? configuration.GetConnectionString("DefaultConnection")
             ?? throw new InvalidOperationException("Missing PostgreSQL connection string. Configure ConnectionStrings:Postgres or ConnectionStrings:DefaultConnection.");
+    }
+
+    private string GetMysqlConnectionString()
+    {
+        return configuration.GetConnectionString("Mysql")
+            ?? configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException("Missing MySQL connection string. Configure ConnectionStrings:Mysql or ConnectionStrings:DefaultConnection.");
     }
 
     private string GetSqliteConnectionString()

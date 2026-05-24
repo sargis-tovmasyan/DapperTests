@@ -18,10 +18,12 @@ public sealed class ProductRepository(IAppDbConnectionFactory connectionFactory)
 
             INSERT INTO products (id, name, price, created_at)
             SELECT '8d0fd3af-2e09-4eef-9ec0-2f4eeb91a490', 'Notebook', 3.49, CURRENT_TIMESTAMP
+            FROM (SELECT 1) AS dummy
             WHERE NOT EXISTS (SELECT 1 FROM products WHERE id = '8d0fd3af-2e09-4eef-9ec0-2f4eeb91a490');
 
             INSERT INTO products (id, name, price, created_at)
             SELECT '9ecce17a-44ed-40c4-bbb9-bf0675f00558', 'Keyboard', 49.99, CURRENT_TIMESTAMP
+            FROM (SELECT 1) AS dummy
             WHERE NOT EXISTS (SELECT 1 FROM products WHERE id = '9ecce17a-44ed-40c4-bbb9-bf0675f00558');
             """;
 
