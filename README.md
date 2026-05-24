@@ -16,6 +16,10 @@ The project connects a modern `.NET 10 Web API` with **three** different SQL pro
 
 No need to dig through Dockerfiles! Here is everything you need to connect to the databases:
 
+> [!TIP]
+> **Prefer Desktop Tools?**
+> You are not limited to the included web UIs! You can easily connect to these databases using your favorite desktop client (like **DataGrip**, **SSMS**, **DBeaver**, or **pgAdmin Desktop**). Just use `localhost` as the Host and the ports/credentials listed below.
+
 ### 🐘 PostgreSQL (via pgAdmin)
 - **UI Access:** [http://localhost:5050](http://localhost:5050)
 - **pgAdmin Login:** Email: `admin@local.dev` | Password: `root`
